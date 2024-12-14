@@ -1,17 +1,49 @@
 package id.my.khafidprayoga;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+interface Payable {
+    public boolean send(int address, long values) throws PaymentError;
+}
+
+class SolanaWallet implements Payable {
+    @Override
+    public boolean send(int address, long values) throws PaymentError {
+        System.out.println("Init solana wallet transfer...");
+        if (values < 100) {
+            throw new PaymentError(PaymentErrorCode.GAS_FEES_REQUIRED, "must be transfer 100 tokens or more, to cover gas fees");
+        }
+
+        var msg = String.format("Transferring amount of %d to address %s sucessfully", values, address);
+        System.out.println(msg);
+
+        return true;
+    }
+}
+
+class EthereumWallet implements Payable {
+
+    @Override
+    public boolean send(int address, long values) throws PaymentError {
+        System.out.println("Init ethereum wallet transfer...");
+        // wait 5 seconds
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new PaymentError(PaymentErrorCode.SETTLEMENT_ERROR, e.getMessage());
+        }
+
+        var msg = String.format("Transferring amount of %d to address %s sucessfully", values, address);
+        System.out.println(msg);
+        return true;
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        int usernameAccount = 100011231;
+        Payable payer = new EthereumWallet();
+        // change dependency
+        payer = new SolanaWallet();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        payer.send(usernameAccount, 20);
     }
 }
