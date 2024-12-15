@@ -91,6 +91,28 @@ interface Greeting {
     void sayHello(String name);
 }
 
+// Marker class for clarity and readble code
+interface Revokable{}
+interface Expirable{}
+
+abstract class AccessToken{
+    abstract  void issue();
+    abstract  void refresh();
+}
+
+class AccessTokenJWT extends AccessToken implements  Revokable, Expirable {
+
+    @Override
+    void issue() {
+
+    }
+
+    @Override
+    void refresh() {
+
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
         int usernameAccount = 100011231;
