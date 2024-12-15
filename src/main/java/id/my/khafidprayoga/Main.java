@@ -2,6 +2,23 @@ package id.my.khafidprayoga;
 
 interface Payable {
     public boolean send(int address, long values) throws PaymentError;
+
+    default void thisIsBackwardMethod() {
+    }
+
+    ;
+}
+
+interface ERC20L2Rollup extends Payable {
+    static long batchProcessorAddr = 12332133;
+
+    default void bundleTx() {
+        System.out.println("ERC20L2Rollup bundling the transasction");
+    }
+
+    default void verifyHash() {
+        System.out.println("ERC20L2Rollup verifying the hash");
+    }
 }
 
 interface USDC extends Payable {
@@ -9,7 +26,6 @@ interface USDC extends Payable {
 
     public void burn(int address, long values) throws PaymentError;
 
-    public void bridge(int address, int toL2Address, long values) throws PaymentError;
 }
 
 class SolanaWallet implements Payable {
@@ -43,9 +59,10 @@ class EthereumWallet implements Payable {
         System.out.println(msg);
         return true;
     }
+
 }
 
-class OptimismWallet extends EthereumWallet implements USDC {
+class OptimismWallet extends EthereumWallet implements USDC, ERC20L2Rollup {
 
     @Override
     public void mint(int address, long values) throws PaymentError {
@@ -58,15 +75,11 @@ class OptimismWallet extends EthereumWallet implements USDC {
     }
 
     @Override
-    public void bridge(int address, int toL2Address, long values) throws PaymentError {
-        System.out.println("Init bridge provider Stargate.... ");
-        System.out.println("Selecting best route");
-    }
-
-    @Override
     public boolean send(int address, long values) throws PaymentError {
         var msg = String.format("Transferring amount of %d USDC to address %s sucessfully", values, address);
         System.out.println(msg);
+        this.bundleTx();
+        System.out.printf("tx bundled to %s%n", ERC20L2Rollup.batchProcessorAddr);
         return true;
     }
 }
