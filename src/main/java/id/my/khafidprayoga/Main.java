@@ -1,5 +1,7 @@
 package id.my.khafidprayoga;
 
+import java.util.function.Predicate;
+
 interface Payable {
     public boolean send(int address, long values) throws PaymentError;
 
@@ -84,6 +86,11 @@ class OptimismWallet extends EthereumWallet implements USDC, ERC20L2Rollup {
     }
 }
 
+@FunctionalInterface
+interface Greeting {
+    void sayHello(String name);
+}
+
 public class Main {
     public static void main(String[] args) {
         int usernameAccount = 100011231;
@@ -102,5 +109,13 @@ public class Main {
         // mint add token to the address
         USDC op = optimism;
         op.mint(1001, 200);
+
+        Greeting g = (String name) -> {
+            System.out.println("Hello, " + name);
+        };
+        g.sayHello("John");
+
+        Predicate<String> isNotEmpty = (name) -> !name.isEmpty();
+        System.out.println(isNotEmpty.test("John"));
     }
 }
