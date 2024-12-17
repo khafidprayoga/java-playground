@@ -1,17 +1,35 @@
 package id.my.khafidprayoga;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+abstract class Connection {
+    abstract String URI();
+
+    abstract long poolCount();
+}
+
+class MySQLConnection extends Connection {
+
+    @Override
+    String URI() {
+        return "";
+    }
+
+    @Override
+    long poolCount() {
+        return 0;
+    }
+
+    void prepareStmt() {
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+//         error bcz abstract class cant be instantiated
+        //        Connection mongo = new Connection();
+        MySQLConnection sql = new MySQLConnection();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        sql.poolCount();
+        sql.URI();
+        sql.prepareStmt();
     }
 }
