@@ -1,5 +1,7 @@
 package id.my.khafidprayoga;
 
+import java.util.List;
+
 class Box {
     private Object object;
 
@@ -66,5 +68,8 @@ public class Main {
         OrderedPair<Integer, String> pairTwo = new OrderedPair<>(12, "Doni W.");
         System.out.println(pairTwo.getValue());
 
+        Pair<String, List<Integer>> students = new OrderedPair<>("Student remedial absent", List.of(12, 123, 1));
+
+        System.out.println(students.getValue());
     }
 }
