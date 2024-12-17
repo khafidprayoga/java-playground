@@ -1,17 +1,37 @@
 package id.my.khafidprayoga;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+class Box {
+    private Object object;
+
+    public Box(Object object) {
+        this.object = object;
+    }
+
+}
+
+class Boxes<T> {
+    private final T t;
+
+    public Boxes(T t) {
+        this.t = t;
+    }
+
+    T get() {
+        return this.t;
+    }
+}
+
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Box in = new Box(Integer.valueOf(12));
+        in = new Box(String.valueOf("Hi"));
+        System.out.println(in.toString());
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        Boxes<String> name = new Boxes<String>("Hello");
+        System.out.println(name.get());
+
+        Boxes<Long> idCard = new Boxes<Long>(Long.valueOf(12));
+        System.out.println(idCard.get());
     }
 }
