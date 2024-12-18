@@ -1,5 +1,6 @@
 package id.my.khafidprayoga;
 
+import java.util.Arrays;
 import java.util.List;
 
 class Box {
@@ -68,7 +69,20 @@ class Boxs<T extends Number> {
 }
 
 public class Main {
+    static <T extends Comparable<T>> int countGreaterThan(T[] anArray, T elem) {
+        int count = 0;
+        for(T e: anArray) {
+            if(e.compareTo(elem) > 0) {
+                ++count;
+            }
+        }
+        return count;
+    }
     public static void main(String[] args) {
+        Integer[] s = {123,121,1222};
+        Integer f = 2;
+        Integer sx = Main.countGreaterThan(s,f);
+
         Box in = new Box(Integer.valueOf(12));
         in = new Box(String.valueOf("Hi"));
         System.out.println(in.toString());
