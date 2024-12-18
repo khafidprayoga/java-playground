@@ -2,10 +2,7 @@ package id.my.khafidprayoga;
 
 import java.util.List;
 import java.util.Random;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.IntSupplier;
-import java.util.function.Predicate;
+import java.util.function.*;
 
 public class Main {
 
@@ -24,7 +21,7 @@ public class Main {
             System.out.println("Producing invoice for: ".concat(data));
         };
 
-        List<String > invoiceScheduled = List.of("Joe Arifin","Johan Dalton");
+        List<String> invoiceScheduled = List.of("Joe Arifin", "Johan Dalton");
         invoiceScheduled.forEach(invoiceConsumer);
 
         BiConsumer<Random, Integer> randomNumberPrint = (random, integer) -> {
@@ -36,10 +33,13 @@ public class Main {
         randomNumberPrint.accept(new Random(314L), 2);
 
         // Consumer for testing object
-        Predicate<String> hasAnd = s-> s.toLowerCase().contains("and");
+        Predicate<String> hasAnd = s -> s.toLowerCase().contains("and");
         String sql = "and join users";
 
-        System.out.println("sql has and query: " +hasAnd.test(sql));
+        System.out.println("sql has and query: " + hasAnd.test(sql));
 
+        BiPredicate<String, Integer> wc = (word, length) -> word.length() == length;
+        System.out.println("hello world".length());
+        System.out.println("this text has 2 word len: " + wc.test("hello world", 2));
     }
 }
