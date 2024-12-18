@@ -2,6 +2,7 @@ package id.my.khafidprayoga;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 
 class Box {
     private Object object;
@@ -106,5 +107,19 @@ public class Main {
         Boxs<Integer> integerBox = new Boxs<>();
         integerBox.setT(Integer.valueOf(12));
         integerBox.inspect(1312);
+
+        Person ages = new Main.Person("Ages",123);
+        Predicate<Main.Person> young = person -> person.age <30 ;
+
+        System.out.println(young.test(ages));
+    }
+
+    static class Person{
+        private String name;
+        private int age;
+        public Person(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
     }
 }
