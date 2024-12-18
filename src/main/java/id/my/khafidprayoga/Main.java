@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.IntSupplier;
+import java.util.function.Predicate;
 
 public class Main {
 
@@ -33,5 +34,12 @@ public class Main {
         };
 
         randomNumberPrint.accept(new Random(314L), 2);
+
+        // Consumer for testing object
+        Predicate<String> hasAnd = s-> s.toLowerCase().contains("and");
+        String sql = "and join users";
+
+        System.out.println("sql has and query: " +hasAnd.test(sql));
+
     }
 }
