@@ -1,44 +1,18 @@
 package id.my.khafidprayoga;
 
-
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Predicate;
-
-@FunctionalInterface
-interface Runnable {
-    public abstract void run();
-}
-
-@FunctionalInterface
-interface Consumer<T> {
-    void accept(T t);
-
-    default Consumer<T> andThen(Consumer<? super T> after) {
-        return null;
-    }
-
-    ;
-}
+import java.util.Random;
+import java.util.function.IntSupplier;
+import java.util.function.Supplier;
 
 public class Main {
-    static int calculateTotalPrice(List<?> products){
-        AtomicInteger total = new AtomicInteger(0);
-        Consumer<?> consumer = product -> total.addAndGet(100);
-        return total.get();
-    }
+
     public static void main(String[] args) {
-        Consumer<String> consume = s -> System.out.println(s);
+        Random rand = new Random(50L);
+        // this code more performant than Supplier<Integer>
+        IntSupplier newRandom = () -> rand.nextInt(100);
 
-        consume.accept("Hello");
-
-        Runnable r = () -> System.out.println("I am running");
-
-        r.run();
-
-        Predicate<String> prec = s -> s.length() > 0;
-        System.out.println(prec.test("Hello world"));
-        var x = Main.calculateTotalPrice(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-        System.out.println(x);
+        for (int i = 0; i < 10; i++) {
+            System.out.println(newRandom.getAsInt());
+        }
     }
 }
