@@ -41,5 +41,9 @@ public class Main {
         BiPredicate<String, Integer> wc = (word, length) -> word.length() == length;
         System.out.println("hello world".length());
         System.out.println("this text has 2 word len: " + wc.test("hello world", 2));
+
+        Function<String, Integer> toLen = s -> s.length();
+        String word = "lorem ipsum limpus";
+        System.out.println(toLen.apply(word));
     }
 }
