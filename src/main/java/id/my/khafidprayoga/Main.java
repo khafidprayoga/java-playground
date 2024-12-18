@@ -50,6 +50,23 @@ class OrderedPair<K, V> implements Pair<K, V> {
     }
 }
 
+class Boxs<T extends Number> {
+    private T t;
+
+    public void setT(T t) {
+        this.t = t;
+    }
+
+    public T getT() {
+        return this.t;
+    }
+
+    public void inspect(T u) {
+        System.out.println(t.getClass().getSimpleName());
+        System.out.println(u.getClass().getSimpleName());
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
         Box in = new Box(Integer.valueOf(12));
@@ -71,5 +88,9 @@ public class Main {
         Pair<String, List<Integer>> students = new OrderedPair<>("Student remedial absent", List.of(12, 123, 1));
 
         System.out.println(students.getValue());
+
+        Boxs<Integer> integerBox = new Boxs<>();
+        integerBox.setT(Integer.valueOf(12));
+        integerBox.inspect(1312);
     }
 }
