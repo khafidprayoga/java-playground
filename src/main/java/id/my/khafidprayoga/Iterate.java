@@ -1,9 +1,6 @@
 package id.my.khafidprayoga;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class Iterate {
     public static void main(String[] args) {
@@ -42,5 +39,33 @@ public class Iterate {
             iterator.remove();
         }
 
+        for(int i: new Iterate.Range(0,5)){
+            System.out.println(i);
+        }
+    }
+
+    static record Range(int start, int end) implements Iterable<Integer> {
+        @Override
+        public Iterator<Integer> iterator() {
+            return new Iterator<Integer>() {
+                private int index = start;
+
+                @Override
+                public boolean hasNext() {
+                    return index < end;
+                }
+
+                @Override
+                public Integer next() {
+                    if (index > end) {
+                        throw new NoSuchElementException("" + index);
+                    }
+
+                    int currentIndex = index;
+                    index++;
+                    return currentIndex;
+                }
+            };
+        }
     }
 }
