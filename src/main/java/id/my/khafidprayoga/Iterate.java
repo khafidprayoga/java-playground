@@ -39,9 +39,15 @@ public class Iterate {
             iterator.remove();
         }
 
-        for(int i: new Iterate.Range(0,5)){
-            System.out.println(i);
+        Range rng = new Range(1,4);
+        Iterator<Integer> intIter = rng.iterator();
+        while (intIter.hasNext()) {
+            System.out.println(intIter.next());
         }
+
+//        for(int i: new Iterate.Range(0,5)){
+//            System.out.println(i);
+//        }
     }
 
     static record Range(int start, int end) implements Iterable<Integer> {
