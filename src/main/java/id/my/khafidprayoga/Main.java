@@ -3,7 +3,8 @@ package id.my.khafidprayoga;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.Objects;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,7 +17,7 @@ public class Main {
 
         boolean isContainsTwo = strings.contains("two");
 
-        Collection<String > search = new ArrayList<>();
+        Collection<String> search = new ArrayList<>();
         search.add("one");
         search.add("two");
 
@@ -41,11 +42,34 @@ public class Main {
 
         String[] tabStr = strings.toArray(new String[strings.size()]);
 
-        Collection<String> words = Arrays.asList("hello","world","iam","here");
+        Collection<String> words = Arrays.asList("hello", "world", "iam", "here");
 
         String[] tab = words.toArray(String[]::new);
 
+        Collection<String> stringCheck = new ArrayList<>();
+        stringCheck.add(null);
+        stringCheck.add("world");
+        stringCheck.add("");
+        stringCheck.add("Hello");
+        stringCheck.add(null);
+        stringCheck.add("");
 
+        System.out.println(stringCheck);
+        stringCheck.removeIf(Main.CollectFilter.isNullOrEmpty());
+        System.out.println(stringCheck);
+    }
 
+    static class CollectFilter {
+        static Predicate<String> isNull() {
+            return Objects::isNull;
+        }
+
+        static Predicate<String> isEmptyString() {
+            return String::isEmpty;
+        }
+
+        static Predicate<String> isNullOrEmpty() {
+            return isNull().or(isEmptyString());
+        }
     }
 }
