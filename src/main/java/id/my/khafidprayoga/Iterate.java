@@ -39,7 +39,7 @@ public class Iterate {
             iterator.remove();
         }
 
-        Range rng = new Range(1,4);
+        Range rng = new Range(1, 4);
         Iterator<Integer> intIter = rng.iterator();
         while (intIter.hasNext()) {
             System.out.println(intIter.next());
